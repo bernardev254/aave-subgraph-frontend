@@ -82,62 +82,71 @@ function Dashboard() {
   }, [eventType, client, GET_APPROVALS, GET_BALANCE_TRANSFERS, GET_MINTS, GET_BURNS]);
 
   return (
-    <div className="parent">
+    <div  className = 'parent'>
       <div className="banner">
         <h1>Aave Token Event Dashboard</h1>
         <p>Aave is a decentralized finance protocol that allows users to lend and borrow cryptocurrencies.</p>
         <p>Explore Aave token events like Approvals, Balance Transfers, Mints, and Burns.</p>
+        
       </div>
-  
-      <nav>
+
+      <nav>        
         <button onClick={() => setEventType('approvals')}>Approvals</button>
-        <button onClick={() => setEventType('balanceTransfers')}>Balance Transfers</button>
+        <button onClick={() => setEventType('balanceTransfers')}>Balance Transfers</button>       
         <button onClick={() => setEventType('mints')}>Mints</button>
         <button onClick={() => setEventType('burns')}>Burns</button>
       </nav>
-  
-      <div className="cards-container">
+
+      {/* content body */}
+
+      <div className= 'card'>
+      
+        <h2 >{eventType.charAt(0).toUpperCase() + eventType.slice(1)} Data</h2>
+        <div className="content">
         {eventData && eventData.length > 0 ? (
           eventData.map((event) => (
-            <div key={event.id} className="card">
-              <h2>{eventType.charAt(0).toUpperCase() + eventType.slice(1)} Data</h2>
-              <div className="card-data">
-                {eventType === 'approvals' && (
-                  <>
-                    <div>Owner: <span className="value">{event.owner}</span></div>
-                    <div>Spender: <span className="value">{event.spender}</span></div>
-                    <div>Value: <span className="value">{event.value}</span></div>
-                  </>
-                )}
-                {eventType === 'balanceTransfers' && (
-                  <>
-                    <div>From: <span className="value">{event.from}</span></div>
-                    <div>To: <span className="value">{event.to}</span></div>
-                    <div>Value: <span className="value">{event.value}</span></div>
-                  </>
-                )}
-                {eventType === 'mints' && (
-                  <>
-                    <div>To: <span className="value">{event.to}</span></div>
-                    <div>Value: <span className="value">{event.value}</span></div>
-                  </>
-                )}
-                {eventType === 'burns' && (
-                  <>
-                    <div>From: <span className="value">{event.from}</span></div>
-                    <div>Value: <span className="value">{event.value}</span></div>
-                  </>
-                )}
-              </div>
+            <div key={event.id} >
+              {eventType === 'approvals' && (
+                <div className ='card-data'>
+                 
+                  <div>Owner: {event.owner}</div>
+                  <div>Spender: {event.spender}</div>
+                  <div>Value: {event.value}</div>
+
+
+                
+                </div>
+              )}
+              {eventType === 'balanceTransfers' && (
+                <div className='card-data'>
+                  <div>From: {event.from}</div>
+                  <div>To: {event.to}</div>
+                  <div>Value: {event.value}</div>
+                </div>
+              )}
+              {eventType === 'mints' && (
+                <div className='card-data'>
+                  <div>To: {event.to}</div>
+                  <div>Value: {event.value}</div>
+                </div>
+              )}
+              {eventType === 'burns' && (
+                <div className='card-data'>
+                  <div>From: {event.from}</div>
+                  <div>Value: {event.value}</div>
+                </div>
+              )}
             </div>
           ))
-         ) : (
+        ) : (
           <p>No data available for {eventType}</p>
         )}
+        </div>
       </div>
-    </div>
+
+      </div>
+    
   );
-  
 }
 
 export default Dashboard;
